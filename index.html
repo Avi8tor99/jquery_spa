@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Jquery SPA page </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<!--
+	* Author: Adrian Fish
+	* Assignment: BScH Mobile Development, Digital Skills Academy
+	* Student ID: STU-00001519 * Date : 2018/04/03
+	* Ref: website link to code referenced or the book, authors name and page number -->
+	<script>
+		
+		$.getJSON( "data/listitems.json")
+		.success(function(result) {
+			var items = [];
+			$.each(result, function(i, field) {
+			   items.push( "<li id='" + i + "'>" + field + "</li>" );
+			});
+			$('#names-list').append(items);
+		})
+		.error(function(error){
+          console.log(error);
+		});
+		
+		
+
+	</script>
+</head>
+
+<body>
+	<div data-role="page" class="" data-quicklinks="true">	
+		<div data-role="header" class="">
+			<!-- <h2><a href="../" title="jQuery Mobile Demos home"><img src="../_assets/img/jquery-logo.png" alt="jQuery Mobile"></a></h2> -->
+			<p><span class="jqm-version"></span> Demos</p>
+			<a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+			<a href="#" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-search ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
+		</div><!-- /header -->
+		<div data-role="content">
+	
+			<div >
+				<form>
+					<input id="filter-for-listview" data-type="search" placeholder="Type to search..."></input>
+				</form>
+				<ul/>
+				
+				<ol id="names-list" data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">
+					
+				</ol>	
+				
+			</div>
+		
+		</div><!-- /content -->
+		
+		
+		<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+			<p>jQuery Mobile Demos version <span class="jqm-version"></span></p>
+			<p>Copyright 2013 The jQuery Foundation</p>
+		</div><!-- /footer -->
+		
+	
+	</div>
+</body>
+</html>
