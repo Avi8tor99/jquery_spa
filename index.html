@@ -24,48 +24,48 @@
 		.error(function(error){
           console.log(error);
 		}); */
+		var footerdata = '<div data-role="footer" data-position="fixed" data-tap-toggle="false" class=""><p>jQuery Mobile Demos version <span class="jqm-version"></span></p><p>Copyright 2013 The jQuery Foundation</p></div>';
 		
+		
+		$(document).on('pageinit', function() {
+			//$('#page1').append(footerdata);
+			//Keep the same header on all pages
+			$("#headerMaster").clone().appendTo(".headerChild");
+			$("#footerMaster").clone().appendTo(".footerChild");
+		}); 
+
+		/* $(document).delegate("#index", "pageinit", function () {
+			$("#headerMaster").clone().appendTo(".headerChild");
+		}); */
+	
 		$( document ).ready(function() {
 
-			$('#link1').on("click", buildPage());
-			
-			//$("<div/>");
+			$('#link1').on("click", buildPage('page2'));
+		
 			
 		});
 
-		function buildPage(){
-			$("<div/>", {
-			// PROPERTIES HERE
-
-					
-			id: "example",
-			"class": "myDiv",      // ('class' is still better in quotes)
-			css: {           
-			color: "red",
-			fontSize: "2em",
-			cursor: "pointer"
-			},
+		function buildPage(page_id){
+			var pagedata = '<div data-role="page" id="' + page_id +'"</div>';
+			 //set whatever content you want to put into the new page
+			 //var Headerstring = '<div data-role="header"><a href="index.html" data-icon="home">Home</a>	<h6>2nd Page</h6><a data-rel="back" data-icon="back">Go back</a>';			
+			var mainheader = '<div class="headerChild"></div>';
+			//append the new page onto the end of the body
+			var contentdata = '<div data-role="content"><a href="#page1">This is the awesome content</a></div>';
 			
-			on: {
-			mouseenter: function() {
-				console.log("PLEASE... "+ $(this).text());
-			},
-			click: function() {
+			var mainfooter = '<div class="footerChild"></div>';
 				
-			}
-			},
-			append: "<i>!!</i>",
-			appendTo: "#page2"      // Finally, append to any selector
-
-			}); // << no need to do anything here as we defined the properties internally.
-
+			//$('#page_body').append('<div data-role="page" id="' + page_id + '"><div data-role="Header">' + Headerstring + '</div>' + contentdata + '</div>');
+			$('#page_body').append(pagedata);
+			$('#' + page_id).append(mainheader).append(contentdata).append(mainfooter);
+		
 		}
 	</script>
 </head>
 
-<body>
+<body id="page_body">
 	<div data-role="page" id="page1" class="" data-quicklinks="true">	
-		<div data-role="header" class="">
+		<div data-role="header"  data-id="header"  id="headerMaster" class="">
 			<!-- <h2><a href="../" title="jQuery Mobile Demos home"><img src="../_assets/img/jquery-logo.png" alt="jQuery Mobile"></a></h2> -->
 			<p><span class="jqm-version"></span> Demos</p>
 			<a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
@@ -77,7 +77,7 @@
 				<form>
 					<input id="filter-for-listview" data-type="search" placeholder="Type to search..."></input>
 				</form>
-				<ul/>
+				<ul>
 				
 				<ul id="names-list" data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview" data-autodividers="true"  >
 						<li data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right" data-inset="false">
@@ -88,37 +88,18 @@
 								</ul>
 							</li>				
 						
-				</ol>	
+				</ul>	
 				
 			</div>
 		
 		</div><!-- /content -->
-		
-		
-		<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
+
+		<div data-role="footer" id="footerMaster" data-position="fixed" data-tap-toggle="false" class="">
 			<p>jQuery Mobile Demos version <span class="jqm-version"></span></p>
 			<p>Copyright 2013 The jQuery Foundation</p>
 		</div><!-- /footer -->
-		
 	
 	</div>
-	
-	<div data-role="page" id="page2">
-		<!--div data-role="header">
-			<a href="index.html" data-icon="home">Home</a>
-			<h6>2nd Page</h6>
-			<a data-rel="back" data-icon="back">Go back</a>
-		</div>
-		<div data-role="content">
-			<a href="#page1">Return to Page 1</a>
-		</div>
-		<div data-role="footer">
-			<h2>Footer Content</h2>
-		</div--> 
-	</div>>
-
-
-
-	
+		
 </body>
 </html>
