@@ -12,26 +12,59 @@
 	* Student ID: STU-00001519 * Date : 2018/04/03
 	* Ref: website link to code referenced or the book, authors name and page number -->
 	<script>
-		
+		/* 
 		$.getJSON( "data/listitems.json")
 		.success(function(result) {
 			var items = [];
 			$.each(result, function(i, field) {
-			   items.push( "<li id='" + i + "'>" + field + "</li>" );
+			   items.push( "<li id='" + i + "' data-role='collapsible'>" + field + "</li>" );
 			});
 			$('#names-list').append(items);
 		})
 		.error(function(error){
           console.log(error);
-		});
+		}); */
 		
-		
+		$( document ).ready(function() {
 
+			$('#link1').on("click", buildPage());
+			
+			//$("<div/>");
+			
+		});
+
+		function buildPage(){
+			$("<div/>", {
+			// PROPERTIES HERE
+
+					
+			id: "example",
+			"class": "myDiv",      // ('class' is still better in quotes)
+			css: {           
+			color: "red",
+			fontSize: "2em",
+			cursor: "pointer"
+			},
+			
+			on: {
+			mouseenter: function() {
+				console.log("PLEASE... "+ $(this).text());
+			},
+			click: function() {
+				
+			}
+			},
+			append: "<i>!!</i>",
+			appendTo: "#page2"      // Finally, append to any selector
+
+			}); // << no need to do anything here as we defined the properties internally.
+
+		}
 	</script>
 </head>
 
 <body>
-	<div data-role="page" class="" data-quicklinks="true">	
+	<div data-role="page" id="page1" class="" data-quicklinks="true">	
 		<div data-role="header" class="">
 			<!-- <h2><a href="../" title="jQuery Mobile Demos home"><img src="../_assets/img/jquery-logo.png" alt="jQuery Mobile"></a></h2> -->
 			<p><span class="jqm-version"></span> Demos</p>
@@ -46,8 +79,15 @@
 				</form>
 				<ul/>
 				
-				<ol id="names-list" data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-					
+				<ul id="names-list" data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview" data-autodividers="true"  >
+						<li data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right" data-inset="false">
+								<h3>Collapsible (set) widget</h3>
+								<ul>
+									<li id="link1" data-filtertext="collapsibles content formatting"><a href="#page2" data-ajax="false">Collapsible</a></li>
+									
+								</ul>
+							</li>				
+						
 				</ol>	
 				
 			</div>
@@ -62,5 +102,23 @@
 		
 	
 	</div>
+	
+	<div data-role="page" id="page2">
+		<!--div data-role="header">
+			<a href="index.html" data-icon="home">Home</a>
+			<h6>2nd Page</h6>
+			<a data-rel="back" data-icon="back">Go back</a>
+		</div>
+		<div data-role="content">
+			<a href="#page1">Return to Page 1</a>
+		</div>
+		<div data-role="footer">
+			<h2>Footer Content</h2>
+		</div--> 
+	</div>>
+
+
+
+	
 </body>
 </html>
