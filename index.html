@@ -12,18 +12,32 @@
 	* Student ID: STU-00001519 * Date : 2018/04/03
 	* Ref: website link to code referenced or the book, authors name and page number -->
 	<script>
-		/* 
+		
 		$.getJSON( "data/listitems.json")
 		.success(function(result) {
 			var items = [];
-			$.each(result, function(i, field) {
-			   items.push( "<li id='" + i + "' data-role='collapsible'>" + field + "</li>" );
-			});
-			$('#names-list').append(items);
+			/* $.each(result, function(i, field) {
+				//var content = "<li data-role='collapsible' data-iconpos='right' data-inset='false' id='set" + i + "'><h3>Section " + i + "</h3><p>I am the collapsible content in a set so this feels like an accordion. I am hidden by default because I have the 'collapsed' state; you need to expand the header to see me.</p></li>";
+				var content = "<li data-role='collapsible'><h3>Collapsible (set) widget</h3><p>test</p></li>";
+        		$('#names-list').append(content);
+			}); */
+			var output = '';
+
+    //iterate through the data (we could also get rid of the jQuery here by using `for (key in data) {
+    $.each(result, function(index, value){
+
+        //add each value to the output buffer (we also have access to the other properties of this object: id, start, and end)
+        output += "<li data-role='collapsible' data-iconpos='right' data-inset='false'>" + value + "<h3>collapsible</h3></li>";
+    });
+
+    //now append the buffered output to the listview and either refresh the listview or create it (meaning have jQuery Mobile style the list)
+    $('#names-list').append(output).listview('refresh')
+			
 		})
 		.error(function(error){
           console.log(error);
-		}); */
+		}); 
+  
 		var footerdata = '<div data-role="footer" data-position="fixed" data-tap-toggle="false" class=""><p>jQuery Mobile Demos version <span class="jqm-version"></span></p><p>Copyright 2013 The jQuery Foundation</p></div>';
 		
 		
@@ -41,8 +55,8 @@
 		$( document ).ready(function() {
 
 			$('#link1').on("click", buildPage('page2'));
-		
-			
+		//maybe add some prefestching for the other pages using  data-prefetch
+			//<a href="whatever.html" data-prefetch>lol </a>
 		});
 
 		function buildPage(page_id){
@@ -77,18 +91,20 @@
 				<form>
 					<input id="filter-for-listview" data-type="search" placeholder="Type to search..."></input>
 				</form>
-				<ul>
 				
-				<ul id="names-list" data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview" data-autodividers="true"  >
-						<li data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right" data-inset="false">
+								
+					<ul id="names-list"  data-role="listview" data-autodividers="true" data-input="#filter-for-listview" data-filter="true" data-inset="true">
+							
+					</ul>
+						<!-- <li data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right" data-inset="false">
 								<h3>Collapsible (set) widget</h3>
 								<ul>
 									<li id="link1" data-filtertext="collapsibles content formatting"><a href="#page2" data-ajax="false">Collapsible</a></li>
 									
 								</ul>
-							</li>				
+							</li>	 -->
 						
-				</ul>	
+				
 				
 			</div>
 		
