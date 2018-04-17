@@ -19,8 +19,8 @@
 			var items = [];			
 			
 			$.each(result, function(i, field) {				
-				items.push("<li id='link" + i + "' class='page' ><a href='#page" + field + "'>" + field + "</a></li>");	
-				$('#link' + i).bind("click", buildPage('page'+ field));							 
+				items.push("<li id='link" + i + "' class='link' ><a href='#page" + field + "'>" + field + "</a></li>");	
+				//$('#link' + i).on('click', buildPage('page'+ field));							 
 			}); 
 			
 			$('#names-list').append(items).listview('refresh')
@@ -33,6 +33,29 @@
   
 		var footerdata = '<div data-role="footer" data-position="fixed" data-tap-toggle="false" class=""><p>jQuery Mobile Demos version <span class="jqm-version"></span></p><p>Copyright 2013 The jQuery Foundation</p></div>';
 		
+		$(document).bind( "pagebeforechange", function( e, data ) {
+			
+			// We only want to handle changePage() calls where the caller is
+			// asking us to load a page by URL.
+			if ( typeof data.toPage === "string" ) {
+				//buildPage("pageAcura");
+				// We are being asked to load a page by URL, but we only
+				// want to handle URLs that request the data for a specific
+				// category.
+				var u = $.mobile.path.parseUrl( data.toPage ),					
+					re = /^#category-item/;
+				if ( u.hash.search(re) !== -1 ) {
+					// We're being asked to display the items for a specific category.
+					// Call our internal method that builds the content for the category
+					// on the fly based on our in-memory category data structure.
+					showCategory( u, data.options );
+
+					// Make sure to tell changePage() we've handled this call so it doesn't
+					// have to do anything.
+					e.preventDefault();
+				}
+			}
+		});
 		
 		$(document).on('pageinit', function() {						
 			//Keep the same header and footer on all pages
@@ -47,8 +70,9 @@
 			//<a href="whatever.html" data-prefetch>lol </a>
 		});
 
-		function buildPage(page_id){
-			
+		function buildPage(page_id){	
+
+			alert ("page being built");
 			var pagedata = '<div data-role="page" id="' + page_id +'"</div>';
 			 //set whatever content you want to put into the new page
 			 //var Headerstring = '<div data-role="header"><a href="index.html" data-icon="home">Home</a>	<h6>2nd Page</h6><a data-rel="back" data-icon="back">Go back</a>';			
