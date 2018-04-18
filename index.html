@@ -14,16 +14,27 @@
 	<script>
 		
 		$.getJSON( "data/listitems.json")
-		.success(function(result) {
-			
-			var items = [];			
-			
-			$.each(result, function(i, field) {				
-				items.push("<li id='link" + i + "' class='link' ><a href='#page" + field + "'>" + field + "</a></li>");	
+		.success(function(result) {												
+			$.each(result.menu.items, function(index, element) {
+				$(element).search("label").each (function() {
+					alert ("label = " + element.label)
+
+				})
+				var id = element.id;
+				var label = element.label;					
+				//var id = $(result.menu.items).attr ('id');		
+				//var label = $(result.menu.items).attr ('label');		
+				$('#names-list').append ( 
+					$('<li/>', {
+						id: id,
+						text: label
+					})
+				)
+				//items.push("<li id='link" + i + "' class='link' ><a href='#page" + field + "'>" + field + "</a></li>");	
 				//$('#link' + i).on('click', buildPage('page'+ field));							 
 			}); 
 			
-			$('#names-list').append(items).listview('refresh')
+			$('#names-list').listview('refresh')
 
 			
 		})
